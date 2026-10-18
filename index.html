@@ -141,9 +141,9 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 .xp-media{position:absolute;left:50%;top:var(--y0,190px);width:var(--w0,340px);height:var(--h0,450px);transform:translateX(-50%);will-change:width,height,top}
 .xp-clip{position:absolute;inset:0;overflow:hidden;border-radius:999px 999px 0 0;background:var(--stone)}
 .xp-clip video{object-position:49% 50%}
-/* 앱 내장 브라우저(네이버·카카오 QR 등)가 자동재생을 막을 때: 첫 장면을 천천히 움직여 정지 화면처럼 보이지 않게 */
-@keyframes heroDrift{from{transform:scale(1.02) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(-1.5%,-1%,0)}}
-.xp-clip.still video{animation:heroDrift 9s ease-in-out infinite alternate}
+/* 자동재생이 막힌 브라우저(갤럭시 카메라 QR·앱 내장 브라우저 등): 같은 장면의 움직이는 이미지로 대신 보여줌 */
+.hero-anim{position:absolute;inset:0;object-position:50% 50%}
+.hero-anim[hidden]{display:none}
 .xp-eyebrow{position:absolute;left:0;right:0;top:calc(var(--hdr) + env(safe-area-inset-top) + 18px);text-align:center;font-family:var(--en);font-style:italic;font-size:17px;letter-spacing:.16em;color:var(--mute)}
 .xp-title{position:absolute;left:0;right:0;top:calc(var(--hdr) + env(safe-area-inset-top) + 46px);z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:0 .3em;font-family:var(--ko);font-weight:500;font-size:clamp(32px,9.6vw,50px);line-height:1.15;letter-spacing:-.04em;pointer-events:none}
 .xp-hint[hidden]{display:none}
@@ -593,6 +593,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
           <video class="fill" id="heroVid" autoplay muted loop playsinline preload="auto" poster="img/hero-canva.jpg" aria-label="맑은 피부의 모델이 얼굴을 감싸는 영상">
             <source src="video/hero-canva.mp4" type="video/mp4">
           </video>
+          <img class="fill hero-anim" id="heroAnim" data-src="img/hero-canva.webp" alt="" hidden>
         </div>
         <div class="seal" id="xpSeal" aria-hidden="true">
           <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs><text><textPath href="#circ" textLength="248" lengthAdjust="spacing">CELLENIQUE · MOKDONG · </textPath></text></svg>
@@ -1123,10 +1124,12 @@ else {
   const kick = () => tryPlay();
   kicks.forEach(t => addEventListener(t, kick, {passive:true}));
   heroVid.addEventListener("playing", () => kicks.forEach(t => removeEventListener(t, kick)), {once:true});
-  // 2초가 지나도 재생이 안 되면(앱 내장 브라우저의 자동재생 차단) 첫 장면에 잔잔한 움직임을 줌
-  const clip = heroVid.closest(".xp-clip");
-  setTimeout(() => { if (heroVid.paused) clip.classList.add("still"); }, 2000);
-  heroVid.addEventListener("playing", () => clip.classList.remove("still"));
+  // 1.5초가 지나도 재생이 안 되면(자동재생 차단) 움직이는 이미지(webp)로 대신 보여줌 — 이미지는 어느 브라우저에서나 저절로 움직임
+  const heroAnim = document.getElementById("heroAnim");
+  const showAnim = () => { if (heroVid.paused && heroAnim.hidden) { heroAnim.src = heroAnim.dataset.src; heroAnim.hidden = false; } };
+  setTimeout(showAnim, 1500);
+  addEventListener("pageshow", e => { if (e.persisted) setTimeout(showAnim, 1500); });
+  heroVid.addEventListener("playing", () => { heroAnim.hidden = true; });
   ["loadedmetadata", "canplay", "canplaythrough"].forEach(t => heroVid.addEventListener(t, tryPlay));
   tryPlay();
   // 다른 앱(인스타·카카오)에 갔다가 돌아오면 멈춰 있으므로 다시 재생
