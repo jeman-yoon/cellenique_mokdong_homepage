@@ -121,13 +121,13 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 #heroVid::-webkit-media-controls,#heroVid::-webkit-media-controls-start-playback-button,#heroVid::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none}
 .gnb a{white-space:nowrap}
 .gnb-d,.h-cta{display:none}
-.gnb-m{display:flex;gap:4px;height:var(--nav);align-items:center;overflow-x:auto;scrollbar-width:none;padding:0 var(--g);border-top:1px solid var(--line);scroll-padding-inline:var(--g)}
-.gnb-m::-webkit-scrollbar{display:none}
-.gnb-m a{position:relative;display:flex;align-items:center;height:100%;padding:0 10px;font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s}
-.gnb-m a::after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
+/* 휴대폰 메뉴: 6개 항목이 가로 스크롤 없이 한 화면에 고르게 */
+.gnb-m{display:flex;justify-content:space-between;height:var(--nav);align-items:center;padding:0 max(8px,calc(var(--g) - 8px));border-top:1px solid var(--line)}
+.gnb-m a{position:relative;display:flex;align-items:center;justify-content:center;height:100%;padding:0 clamp(3px,1.2vw,6px);font-size:clamp(12px,3.65vw,15px);font-weight:500;letter-spacing:-.02em;color:var(--ink-2);transition:color .2s}
+.gnb-m a::after{content:"";position:absolute;left:6px;right:6px;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
 .gnb a.on{color:var(--ink);font-weight:600}
 .gnb-m a.on::after{transform:none}
-.gnb-m a:first-child{margin-left:-10px}
+@media (min-width:720px){.gnb-m{justify-content:center;gap:28px}}
 /* 터치했을 때 눌린 느낌 */
 .chip:active,.quick a:active,.gnb a:active,.rail-ctrl button:active,.pg .acts button:active{opacity:.6}
 /* PC 오른쪽 고정 빠른 문의 바 */
@@ -141,6 +141,9 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 .xp-media{position:absolute;left:50%;top:var(--y0,190px);width:var(--w0,340px);height:var(--h0,450px);transform:translateX(-50%);will-change:width,height,top}
 .xp-clip{position:absolute;inset:0;overflow:hidden;border-radius:999px 999px 0 0;background:var(--stone)}
 .xp-clip video{object-position:49% 50%}
+/* 앱 내장 브라우저(네이버·카카오 QR 등)가 자동재생을 막을 때: 첫 장면을 천천히 움직여 정지 화면처럼 보이지 않게 */
+@keyframes heroDrift{from{transform:scale(1.02) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(-1.5%,-1%,0)}}
+.xp-clip.still video{animation:heroDrift 9s ease-in-out infinite alternate}
 .xp-eyebrow{position:absolute;left:0;right:0;top:calc(var(--hdr) + env(safe-area-inset-top) + 18px);text-align:center;font-family:var(--en);font-style:italic;font-size:17px;letter-spacing:.16em;color:var(--mute)}
 .xp-title{position:absolute;left:0;right:0;top:calc(var(--hdr) + env(safe-area-inset-top) + 46px);z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:0 .3em;font-family:var(--ko);font-weight:500;font-size:clamp(32px,9.6vw,50px);line-height:1.15;letter-spacing:-.04em;pointer-events:none}
 .xp-hint[hidden]{display:none}
@@ -565,7 +568,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
     <a class="h-cta" data-link="bookFace"><span class="n">N</span>예약하기</a>
   </div>
   <nav class="gnb gnb-m" id="gnbM" aria-label="주요 메뉴">
-    <a href="#first">첫 방문</a><a href="#programs">관리 프로그램</a><a href="#press">원장 인터뷰</a><a href="#space">공간</a><a href="#homecare">홈케어</a><a href="#visit">오시는 길</a>
+    <a href="#first">첫 방문</a><a href="#programs">프로그램</a><a href="#press">인터뷰</a><a href="#space">공간</a><a href="#homecare">홈케어</a><a href="#visit">오시는 길</a>
   </nav>
 </header>
 
@@ -1120,6 +1123,10 @@ else {
   const kick = () => tryPlay();
   kicks.forEach(t => addEventListener(t, kick, {passive:true}));
   heroVid.addEventListener("playing", () => kicks.forEach(t => removeEventListener(t, kick)), {once:true});
+  // 2초가 지나도 재생이 안 되면(앱 내장 브라우저의 자동재생 차단) 첫 장면에 잔잔한 움직임을 줌
+  const clip = heroVid.closest(".xp-clip");
+  setTimeout(() => { if (heroVid.paused) clip.classList.add("still"); }, 2000);
+  heroVid.addEventListener("playing", () => clip.classList.remove("still"));
   ["loadedmetadata", "canplay", "canplaythrough"].forEach(t => heroVid.addEventListener(t, tryPlay));
   tryPlay();
   // 다른 앱(인스타·카카오)에 갔다가 돌아오면 멈춰 있으므로 다시 재생
@@ -1190,8 +1197,6 @@ function markNav(id){
     a.classList.toggle("on", on);
     on ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current");
   });
-  const a = gnbM.querySelector(".on");
-  if (a) gnbM.scrollTo({left: a.offsetLeft - (gnbM.clientWidth - a.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth"});
 }
 function spy(){
   const line = hdr.offsetHeight + innerHeight * .3;   // 화면 위쪽 30% 지점을 지나는 섹션
