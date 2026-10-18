@@ -109,13 +109,16 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 .quick a .ic{width:22px;height:22px}
 .quick a::before{content:"";position:absolute;width:36px;height:36px;border-radius:50%;border:1px solid var(--sand);transition:background-color .2s}
 .quick a{position:relative}
-.quick a:hover::before{background:var(--paper)}
+/* 마우스가 있는 기기에서만 hover 색 변경 — 휴대폰은 터치 후 hover 상태가 남아 인스타·카카오 바탕이 하얗게 덮였음 */
+@media (hover:hover) and (pointer:fine){.quick a:not(.q-insta):not(.q-kakao):hover::before{background:var(--paper)}}
 .q-kakao b,.qi.q-kakao b{font:800 9.5px/1 Arial,sans-serif;letter-spacing:.02em;color:#3A1D1D}
 .quick .q-kakao::before{background:var(--kakao);border-color:var(--kakao)}
 .quick .q-kakao b{position:relative}
 /* 인스타그램: 공식 로고 그라데이션 바탕 + 흰 로고 */
 .quick .q-insta::before,.qi.q-insta{background:radial-gradient(circle at 30% 107%,#FDF497 0%,#FDF497 5%,#FD5949 45%,#D6249F 60%,#285AEB 90%);border-color:transparent}
 .quick .q-insta .ic,.qi.q-insta .ic{position:relative;color:#fff;stroke-width:2}
+/* iOS 저전력 모드에서 영상 위에 뜨는 기본 재생 버튼 숨김 */
+#heroVid::-webkit-media-controls,#heroVid::-webkit-media-controls-start-playback-button,#heroVid::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none}
 .gnb a{white-space:nowrap}
 .gnb-d,.h-cta{display:none}
 .gnb-m{display:flex;gap:4px;height:var(--nav);align-items:center;overflow-x:auto;scrollbar-width:none;padding:0 var(--g);border-top:1px solid var(--line);scroll-padding-inline:var(--g)}
@@ -1107,13 +1110,24 @@ const heroVid = document.getElementById("heroVid");
 if (reduce) { heroVid.removeAttribute("autoplay"); heroVid.pause(); }
 else {
   heroVid.muted = true;   // 일부 브라우저는 속성만으로는 음소거로 인식하지 않아 자동재생을 막음
-  const tryPlay = () => heroVid.play().catch(() => {});
-  new IntersectionObserver(([e]) => { e.isIntersecting ? tryPlay() : heroVid.pause(); }, {threshold:.2}).observe(heroVid);
-  // 저전력 모드 등으로 자동재생이 막혔을 때: 첫 터치·스크롤·클릭에서 재생
-  const kick = () => { if (heroVid.paused) tryPlay(); };
-  ["touchstart", "scroll", "click", "keydown"].forEach(t => addEventListener(t, kick, {passive:true, once:true}));
-  heroVid.addEventListener("canplay", tryPlay, {once:true});
+  heroVid.defaultMuted = true; heroVid.setAttribute("muted", ""); heroVid.playsInline = true;
+  let heroSeen = true;
+  const tryPlay = () => { if (heroSeen && heroVid.paused) { const p = heroVid.play(); if (p) p.catch(() => {}); } };
+  new IntersectionObserver(([e]) => { heroSeen = e.isIntersecting; heroSeen ? tryPlay() : heroVid.pause(); }, {threshold:.2}).observe(heroVid);
+  // 저전력 모드 등으로 자동재생이 막혔을 때: 화면을 처음 만지거나 스크롤하는 순간 재생
+  // (iOS는 touchstart가 아니라 touchend·click에서만 재생을 허락하므로, 재생될 때까지 계속 시도)
+  const kicks = ["touchend", "pointerup", "click", "keydown", "scroll", "touchmove"];
+  const kick = () => tryPlay();
+  kicks.forEach(t => addEventListener(t, kick, {passive:true}));
+  heroVid.addEventListener("playing", () => kicks.forEach(t => removeEventListener(t, kick)), {once:true});
+  ["loadedmetadata", "canplay", "canplaythrough"].forEach(t => heroVid.addEventListener(t, tryPlay));
+  tryPlay();
+  // 다른 앱(인스타·카카오)에 갔다가 돌아오면 멈춰 있으므로 다시 재생
+  addEventListener("pageshow", tryPlay);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) tryPlay(); });
 }
+// 외부 앱에서 돌아왔을 때 버튼에 눌림·포커스 상태가 남지 않게
+addEventListener("pageshow", () => { if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); });
 
 /* ▸ 히어로 스크롤 확장
    무대(.xp)를 내려가는 비율 p(0→1)에 따라 아치 속 영상이 화면 가득 커지고,
