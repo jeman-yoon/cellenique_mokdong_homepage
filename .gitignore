@@ -1,0 +1,22 @@
+# 예전 페이지 백업
+index-v1.html
+
+# 페이지에서 쓰지 않는 사진·영상 (작업용 원본 · 예전 버전)
+img/hero-model.jpg
+img/logo.jpg
+img/p-golden.jpg
+img/p-hydra.jpg
+img/p-toner.jpg
+img/shop-front.jpg
+img/shop-hall.jpg
+img/shop-measure.jpg
+img/shop-room.jpg
+img/src-golf.jpg
+img/src-run.jpg
+img/trouble.jpg
+video/model-1080.mp4
+
+# 시스템 파일
+Thumbs.db
+desktop.ini
+.DS_Store
