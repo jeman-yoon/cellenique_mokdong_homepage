@@ -357,6 +357,9 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 .prod img{width:100%;aspect-ratio:1/1;object-fit:contain}
 .prod .rk{position:absolute;left:14px;top:10px;font-family:var(--en);font-style:italic;font-size:26px;line-height:1;color:var(--ink)}
 .prod .bd{position:absolute;right:12px;top:12px;font-size:12px;font-weight:700;color:var(--red);letter-spacing:.02em}
+.prod.hot{box-shadow:inset 0 0 0 1.5px var(--red)}
+.prod.hot .bd{top:10px;padding:5px 10px;border-radius:999px;background:var(--red);color:#fff;font-size:12px;line-height:1.2}
+.prod.hot .rk{color:var(--red)}
 .prod b{display:block;font-size:15px;font-weight:600;line-height:1.4;margin-top:8px}
 .prod small{display:block;font-size:12px;color:var(--mute);margin-top:1px}
 .prod p{font-size:13px;color:var(--ink-2);line-height:1.6;margin-top:6px}
@@ -423,6 +426,62 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
 .dock .main small{font-family:var(--en);font-size:17px;font-weight:500;color:#E6DED6;margin-left:2px}
 
 /* 크게 보기 */
+.prod{cursor:pointer;display:flex;flex-direction:column;transition:box-shadow .25s var(--ease)}
+.prod:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.prod:hover{box-shadow:0 10px 28px rgba(26,23,20,.08)}}
+.prod .go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:12px;font-size:12px;font-weight:600;color:var(--ink);letter-spacing:.02em}
+.prod .go i{position:relative;width:14px;height:14px;border:1px solid var(--ink);border-radius:50%}
+.prod .go i::before,.prod .go i::after{content:"";position:absolute;left:3px;right:3px;top:50%;height:1px;margin-top:-.5px;background:var(--ink)}
+.prod .go i::after{transform:rotate(90deg)}
+/* 홈케어 제품 소개 팝업 */
+.pd{position:fixed;inset:0;z-index:80;background:rgba(20,17,15,.62);display:flex;align-items:flex-end;justify-content:center;animation:pdFade .25s var(--ease)}
+.pd[hidden]{display:none}
+@keyframes pdFade{from{opacity:0}}
+@keyframes pdUp{from{transform:translateY(40px);opacity:.4}}
+.pd-card{position:relative;width:100%;max-height:92vh;max-height:92dvh;overflow:auto;overscroll-behavior:contain;background:var(--paper);border-radius:24px 24px 0 0;padding-bottom:env(safe-area-inset-bottom);animation:pdUp .35s var(--ease)}
+.pd .x{position:absolute;right:12px;top:12px;z-index:2;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.pd-top{position:relative;background:var(--stone);padding:28px 24px 22px;text-align:center}
+.pd-top::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:rgba(26,23,20,.18)}
+.pd-rk{position:absolute;left:20px;top:22px;font-family:var(--en);font-style:italic;font-size:17px;color:var(--mute);line-height:1;text-align:left}
+.pd-rk b{display:block;font-size:44px;font-weight:400;color:var(--ink)}
+.pd-top img{width:62%;max-width:260px;aspect-ratio:1/1;object-fit:contain;margin:0 auto;mix-blend-mode:multiply}
+.pd-cat{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--red)}
+.pd-body{padding:24px 22px 28px}
+.pd-hot{display:inline-block;margin-bottom:10px;padding:6px 12px;border-radius:999px;background:var(--red);color:#fff;font-size:13px;font-weight:700;letter-spacing:-.01em}
+.pd-hot[hidden]{display:none}
+.pd-en{font-family:var(--en);font-style:italic;font-size:18px;color:var(--mute);line-height:1.2}
+.pd-body h3{font-family:var(--ko);font-weight:500;font-size:26px;letter-spacing:-.035em;line-height:1.3;margin-top:4px}
+.pd-lead{margin-top:10px;font-size:15px;line-height:1.7;color:var(--ink-2);padding-left:12px;border-left:2px solid var(--red)}
+.pd-route-h{margin-top:22px;font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.04em}
+.pd-route{list-style:none;display:flex;margin-top:8px;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.pd-route li{flex:1;text-align:center;font-size:12px;padding:9px 2px;color:var(--mute);letter-spacing:-.02em;white-space:nowrap}
+.pd-route li+li{border-left:1px solid var(--line)}
+.pd-route li.on{background:var(--ink);color:#fff;font-weight:600}
+.pd-pts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.pd-pts div{background:var(--ivory);border-radius:16px;padding:16px 14px}
+.pd-pts b{display:block;font-size:14px;font-weight:700;color:var(--red);letter-spacing:-.02em;line-height:1.4}
+.pd-pts p{margin-top:6px;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.pd-dl{display:grid;gap:14px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.pd-dl dt{font-size:12px;font-weight:700;color:var(--mute);letter-spacing:.04em}
+.pd-dl dd{margin-top:4px;font-size:14px;line-height:1.65;color:var(--ink-2)}
+.pd-dl .ing{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pd-dl .ing span{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--sand);color:var(--ink)}
+.pd-note{margin-top:22px;font-size:13px;line-height:1.6;color:var(--mute);text-align:center}
+.pd-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.pd-acts .btn{min-height:50px;padding:0 12px;font-size:14px}
+.pd-nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.pd-nav button{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:13px;color:var(--ink-2);max-width:50%}
+.pd-nav button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pd-nav .ic{width:18px;height:18px;flex:none}
+@media (min-width:720px){
+  .pd{align-items:center;padding:24px}
+  .pd-card{max-width:880px;max-height:88vh;border-radius:24px;display:grid;grid-template-columns:5fr 6fr}
+  .pd-top{display:flex;flex-direction:column;justify-content:center;padding:48px 28px;position:sticky;top:0;align-self:start;height:88vh}
+  .pd-top::before{display:none}
+  .pd-top img{width:86%;max-width:320px}
+  .pd-body{padding:40px 36px 32px}
+}
+@media (prefers-reduced-motion:reduce){.pd,.pd-card{animation:none}}
 .lb{position:fixed;inset:0;z-index:80;background:rgba(20,17,15,.94);display:flex;align-items:flex-start;justify-content:center;padding:calc(64px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));overflow:auto}
 .lb[hidden]{display:none}
 .lb img{width:100%;max-width:640px;border-radius:10px}
@@ -983,16 +1042,18 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       <li>고객별 맞춤 홈케어 제품 추천</li>
       <li>각종 홈케어 행사 및 프로모션 진행</li>
     </ul>
-    <div class="shelf-h"><b>많이 찾는 홈케어 BEST</b><span>Best 8</span></div>
-    <div class="shelf" data-rail aria-label="홈케어 BEST 8">
-      <div class="prod"><span class="rk">1</span><span class="bd">후기 최다</span><img src="img/p-collagen.jpg" alt="세레니끄 콜라겐 앰플" loading="lazy" width="500" height="657"><b>콜라겐 앰플</b><small>앰플</small><p>최대 콜라겐 88% 고농축. 코리아나 특허 기술의 탱글한 제형</p></div>
-      <div class="prod"><span class="rk">2</span><img src="img/p-hyaluron.jpg" alt="세레니끄 히아루론 앰플" loading="lazy" width="500" height="657"><b>히아루론 앰플</b><small>앰플</small><p>진피의 저장수를 이루는 히아루론산 성분 85% 함유</p></div>
-      <div class="prod"><span class="rk">3</span><img src="img/p-relief.jpg" alt="세레니끄 센시티브 릴리프 크림" loading="lazy" width="500" height="657"><b>센시티브 릴리프 크림</b><small>크림</small><p>마데카소사이드로 진정. 무색·무향·무알콜 저자극 제형</p></div>
-      <div class="prod"><span class="rk">4</span><img src="img/p-lifting.jpg" alt="세레니끄 리프팅 크림" loading="lazy" width="500" height="657"><b>리프팅 크림</b><small>크림</small><p>콜라겐·히아루론산이 꺼진 피부를 채우고 표정 주름까지</p></div>
-      <div class="prod"><span class="rk">5</span><img src="img/p-royal.jpg" alt="세레니끄 로얄젤리 앰플" loading="lazy" width="500" height="241"><b>로얄젤리 앰플</b><small>앰플</small><p>24시간 지속 보습에 진정·탄력까지 챙기는 앰플</p></div>
-      <div class="prod"><span class="rk">6</span><img src="img/p-vita.jpg" alt="세레니끄 비타민 파우더" loading="lazy" width="500" height="657"><b>비타민 파우더</b><small>스페셜</small><p>비타민 C와 콜라겐으로 미백·주름을 한 번에</p></div>
-      <div class="prod"><span class="rk">7</span><img src="img/p-recovery.jpg" alt="세레니끄 토탈 리커버리 크림" loading="lazy" width="500" height="657"><b>토탈 리커버리 크림</b><small>크림</small><p>세라마이드로 피부 장벽을 강화하고 빠른 재생을 도와요</p></div>
-      <div class="prod"><span class="rk">8</span><img src="img/p-whitening.jpg" alt="세레니끄 천녀목란 미백 크림" loading="lazy" width="500" height="657"><b>천녀목란 미백 크림</b><small>크림</small><p>진주빛 광채를 더하는 기능성 브라이트닝 크림</p></div>
+    <div class="shelf-h"><b>많이 찾는 홈케어 BEST</b><span>Best 10</span></div>
+    <div class="shelf" data-rail aria-label="홈케어 BEST 10">
+      <div class="prod hot" data-pd="0" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">1</span><span class="bd">매장 인기 1위</span><img src="img/p-vita.jpg" alt="세레니끄 비타민 파우더" loading="lazy" width="500" height="657"><b>비타민 파우더</b><small>스페셜</small><p>비타민 C와 콜라겐으로 미백·주름을 한 번에</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="1" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">2</span><span class="bd">후기 최다</span><img src="img/p-collagen.jpg" alt="세레니끄 콜라겐 앰플" loading="lazy" width="500" height="657"><b>콜라겐 앰플</b><small>앰플</small><p>최대 콜라겐 88% 고농축. 코리아나 특허 기술의 탱글한 제형</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="2" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">3</span><img src="img/p-hyaluron.jpg" alt="세레니끄 히아루론 앰플" loading="lazy" width="500" height="657"><b>히아루론 앰플</b><small>앰플</small><p>진피의 저장수를 이루는 히아루론산 성분 85% 함유</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="3" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">4</span><img src="img/p-relief.jpg" alt="세레니끄 센시티브 릴리프 크림" loading="lazy" width="500" height="657"><b>센시티브 릴리프 크림</b><small>크림</small><p>마데카소사이드로 진정. 무색·무향·무알콜 저자극 제형</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="4" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">5</span><img src="img/p-lifting.jpg" alt="세레니끄 리프팅 크림" loading="lazy" width="500" height="657"><b>리프팅 크림</b><small>크림</small><p>콜라겐·히아루론산이 꺼진 피부를 채우고 표정 주름까지</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="5" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">6</span><img src="img/p-royal.jpg" alt="세레니끄 로얄젤리 앰플" loading="lazy" width="500" height="241"><b>로얄젤리 앰플</b><small>앰플</small><p>24시간 지속 보습에 진정·탄력까지 챙기는 앰플</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="6" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">7</span><img src="img/p-recovery.jpg" alt="세레니끄 토탈 리커버리 크림" loading="lazy" width="500" height="657"><b>토탈 리커버리 크림</b><small>크림</small><p>세라마이드로 피부 장벽을 강화하고 빠른 재생을 도와요</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="7" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">8</span><img src="img/p-whitening.jpg" alt="세레니끄 천녀목란 미백 크림" loading="lazy" width="500" height="657"><b>천녀목란 미백 크림</b><small>크림</small><p>진주빛 광채를 더하는 기능성 브라이트닝 크림</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="8" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">9</span><img src="img/p-cellrecovery.jpg" alt="세레니끄 셀 리커버리 앰플" loading="lazy" width="500" height="657"><b>셀 리커버리 앰플</b><small>앰플</small><p>명품 재생 캡슐이 부드럽게 퍼져 탄탄한 V라인 윤곽까지</p><span class="go"><i></i>제품 소개</span></div>
+      <div class="prod" data-pd="9" tabindex="0" role="button" aria-haspopup="dialog"><span class="rk">10</span><img src="img/p-eyecream.jpg" alt="세레니끄 토탈 리커버리 아이크림" loading="lazy" width="500" height="657"><b>토탈 리커버리 아이크림</b><small>아이크림</small><p>잔주름·처짐 등 눈가 고민을 토탈 케어하는 쫀쫀한 아이크림</p><span class="go"><i></i>제품 소개</span></div>
     </div>
   </div>
 </section>
@@ -1080,6 +1141,37 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
 <nav class="dock" id="dock" aria-label="빠른 예약">
   <a class="main" data-link="bookFace"><span class="n">N</span>첫 방문 예약 <small class="num">70,000</small></a>
 </nav>
+
+<!-- 홈케어 제품 소개 -->
+<div class="pd" id="pd" role="dialog" aria-modal="true" aria-labelledby="pdName" hidden>
+  <div class="pd-card">
+    <button type="button" class="x" aria-label="닫기"><svg class="ic" style="width:22px;height:22px"><use href="#i-x"/></svg></button>
+    <div class="pd-top"><span class="pd-rk">Best<b></b></span><img alt=""><span class="pd-cat"></span></div>
+    <div class="pd-body">
+      <p class="pd-hot" hidden></p>
+      <p class="pd-en"></p>
+      <h3 id="pdName"></h3>
+      <p class="pd-lead"></p>
+      <p class="pd-route-h">데일리 루틴 속 단계</p>
+      <ol class="pd-route"><li>클렌징</li><li>토너</li><li>앰플·에센스</li><li>크림</li></ol>
+      <div class="pd-pts"></div>
+      <dl class="pd-dl">
+        <div><dt>핵심 성분</dt><dd class="ing"></dd></div>
+        <div><dt>이런 분께 추천해요</dt><dd class="for"></dd></div>
+        <div><dt>용량</dt><dd class="vol"></dd></div>
+      </dl>
+      <p class="pd-note">피부 상태를 먼저 살펴보고 맞는 제품을 함께 골라드려요.<br>홈케어 행사·프로모션도 매장에서 안내해 드립니다.</p>
+      <div class="pd-acts">
+        <a class="btn btn-ink" data-link="tel"><svg class="ic" style="width:18px;height:18px"><use href="#i-phone"/></svg>전화 문의</a>
+        <a class="btn btn-line" data-link="kakao"><svg class="ic" style="width:18px;height:18px"><use href="#i-chat"/></svg>카톡 문의</a>
+      </div>
+      <nav class="pd-nav" aria-label="다른 제품 보기">
+        <button type="button" class="pv"><svg class="ic"><use href="#i-left"/></svg><span></span></button>
+        <button type="button" class="nx"><span></span><svg class="ic"><use href="#i-right"/></svg></button>
+      </nav>
+    </div>
+  </div>
+</div>
 
 <!-- 포스터·기사 크게 보기 -->
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="크게 보기" hidden>
@@ -1375,6 +1467,135 @@ lb.addEventListener("keydown", e => { if (e.key === "Tab") { e.preventDefault();
 addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
   if (!lb.hidden) closeLb();
+});
+
+/* ▸ 홈케어 제품 소개 팝업 (자료: 세레니끄 홈케어 정리 · 2026 홈케어 메뉴 / 가격은 표시하지 않음) */
+const PRODUCTS = [
+  { en:"Vitamin C Powder Essence", cat:"SPECIAL", hot:"★ 세레니끄 목동점 인기 1위", step:2, vol:"4g × 5개 (1박스)",
+    lead:"바르면 파우더에서 액상으로 변해 쏙 흡수되는, 미백과 주름 개선을 한 번에 챙기는 이중 기능성 에센스",
+    pts:[["비타민 C 유도체","비타민 C 유도체인 AA-2G가 환하게 빛나는 피부로 케어해 줘요."],
+         ["주름과 탄력 케어","콜라겐과 예덕나무피 추출물이 피부 탄력과 주름 개선을 도와요."],
+         ["특별한 파우더 기술","유효 성분을 파우더 안에 한 번 더 감싸 수분·빛으로부터 안정하게 지켜요."],
+         ["체인저블 제형","파우더가 에센스 제형으로 변하며 끈적임 없이 빠르게 흡수돼요."]],
+    ing:["비타민 C 유도체(AA-2G)","콜라겐","예덕나무피 추출물"],
+    for:"피부 톤이 칙칙하고 잡티가 고민인 분, 미백과 주름을 함께 관리하고 싶은 분" },
+  { en:"Collagen Expert 88", cat:"AMPOULE", step:2, vol:"40ml",
+    lead:"하이드로라이즈드 콜라겐을 최대 88% 담아, 촉촉하고 탄력 있는 피부로 가꿔 주는 고농축 콜라겐 앰플",
+    pts:[["콜라겐 88% 고농축","하이드로라이즈드 콜라겐 성분이 무려 88% 함유된 고농축 앰플이에요."],
+         ["형상기억 복원 시스템","눌러도 다시 동그랗게 차오르는 탱글탱글한 젤리 제형. 코리아나만의 특허 기술이에요."],
+         ["촉촉한 물광 효과","피부에 수분을 충분히 채워 생기 있게 빛나는 물광 피부로 가꿔 줘요."],
+         ["쫀쫀한 수분 제형","부드럽게 밀착되는 쫀쫀한 사용감으로 피부가 촉촉하고 매끄러워져요."]],
+    ing:["하이드로라이즈드 콜라겐 88%"],
+    for:"탄력이 떨어지고 건조한 피부, 생기 있는 물광 피부를 원하는 분" },
+  { en:"Hyaluron Ampoule", cat:"AMPOULE", step:2, vol:"40ml",
+    lead:"자연 발효한 85% 고농축 히아루론산 성분이 피부를 촉촉하고 매끄럽게 가꿔 주는 보습 앰플",
+    pts:[["히아루론액 85%","진피의 저장수를 이루는 히아루론산 성분이 무려 85% 함유되어 집중 수분 관리를 도와요."],
+         ["물광 폭탄 앰플","메마르고 건조한 피부에 수분을 충전해 반짝이는 물광 피부를 연출해요."],
+         ["피부 가득 수분 충전","농축된 수분 성분이 물광처럼 반짝이듯 촉촉한 피부로 가꿔 줘요."],
+         ["산뜻한 수분 제형","바르는 즉시 흡수되어 겉은 산뜻하게, 속은 촉촉하게 마무리돼요."]],
+    ing:["자연 발효 히아루론산 85%"],
+    for:"속당김이 있는 수분 부족 피부, 화장이 들뜨고 푸석해 보이는 분" },
+  { en:"AC Sensitive Relief Cream", cat:"CREAM", step:3, vol:"55ml",
+    lead:"피부 보호막을 만들어 민감해진 피부를 편안하게 진정·보호해 주는 민감 피부 전용 크림",
+    pts:[["민감 피부 보호막","마데카소사이드 성분이 민감해진 피부를 편안하게 케어하고 보호해요."],
+         ["빠른 진정 케어","알란토인·마치현·푸른연꽃 추출물로 구성된 진정 복합체가 피부를 진정시켜요."],
+         ["2nd 스킨 시스템","피부 장벽을 케어하는 보습 성분이 다량 함유되어 피부를 촉촉하게 지켜 줘요."],
+         ["순한 저자극 제형","무색·무향·무알콜·무합성 계면활성제로 예민한 피부도 편안하게 써요."]],
+    ing:["마데카소사이드","알란토인","마치현","푸른연꽃 추출물"],
+    for:"쉽게 붉어지고 예민한 피부, 트러블 관리 후 피부가 민감해진 분" },
+  { en:"Lifting Cream", cat:"CREAM", step:3, vol:"55ml",
+    lead:"가로·세로 탄력을 함께 케어해 피부를 더욱 견고하고 매끄럽게 가꿔 주는 더블 리프팅 크림",
+    pts:[["더블 리프팅 탄력","가로 탄력과 세로 탄력을 함께 케어해 매끈한 피부로 가꿔 줘요."],
+         ["꺼진 피부를 채움","콜라겐·히아루론산이 꺼진 피부를 채우고 표정 주름까지 케어해요."],
+         ["쫀쫀한 코르셋 제형","첫 느낌은 촉촉하게, 마무리는 피부를 잡아 주는 쫀쫀한 제형이에요."],
+         ["탄탄한 마무리","바른 뒤 피부가 탄탄하게 정돈되는 느낌을 다시 한번 느낄 수 있어요."]],
+    ing:["콜라겐","히아루론산"],
+    for:"얼굴 라인이 처지고 탄력이 떨어진 분, 표정 주름이 신경 쓰이는 분" },
+  { en:"Royal Jelly Active Ampoule", cat:"AMPOULE", step:2, vol:"30ml",
+    lead:"아미노산·비타민·미네랄이 풍부한 로얄젤리가 메마른 피부에 꿀을 바른 듯 깊은 보습과 윤기를 주는 앰플",
+    pts:[["여왕의 꿀, 로얄젤리","아미노산·비타민·미네랄이 풍부한 로얄젤리 성분이 집중적인 보습과 영양을 케어해요."],
+         ["24시간 보습","치마버섯 추출물과 히아루론산이 피부를 오랫동안 촉촉하게 유지해 줘요."],
+         ["탄력 있는 실타래 제형","실타래처럼 늘어나는 제형이 피부를 매끄럽고 탄탄하게 가꿔 줘요."],
+         ["진정·탄력까지","끈적이지 않는 촉촉함에 진정과 탄력 케어까지 함께 챙겨요."]],
+    ing:["로얄젤리 추출물","치마버섯 추출물","히아루론산"],
+    for:"건조하고 푸석한 피부, 환절기마다 영양이 부족하다고 느끼는 분" },
+  { en:"Total Recovery Cream", cat:"CREAM", step:3, vol:"60ml",
+    lead:"세라마이드로 피부 장벽을 강화하고, 여러 가지 피부 고민을 한 번에 케어하는 고품격 주름 개선 기능성 크림",
+    pts:[["피부 장벽 강화","세라마이드 성분이 피부 장벽을 강화하고 수분 보유력을 높여 줘요."],
+         ["주름 개선 · 고보습","주름, 심한 건조함, 영양 부족 등 피부 고민을 집중적으로 케어해요."],
+         ["탄탄하고 매끄러운 결","싹 발리고 쏙 흡수되어 다음 날 세안 때 매끄러워진 피부를 느낄 수 있어요."],
+         ["로즈 앱솔루트 향","450kg 꽃잎에서 단 0.5kg만 얻는 로즈 앱솔루트 향이 품격을 더해요."]],
+    ing:["세라마이드","로즈 앱솔루트"],
+    for:"피부 장벽이 약해져 건조한 분, 깊은 주름과 영양 부족이 고민인 분" },
+  { en:"Magnolia White Cream", cat:"CREAM", step:3, vol:"50ml",
+    lead:"진주를 녹여 놓은 듯, 크림 입자를 미세하게 쪼개어 은은한 진주빛 광채 피부를 선사하는 미백 기능성 크림",
+    pts:[["윤광 미백 크림","시간과 정성을 들여 얻은 천녀목란 추출물이 윤기 있고 빛나는 피부로 케어해요."],
+         ["진주빛 광채","피부 속 MNF 생성을 도와 은은한 진주빛 광채를 더해 줘요."],
+         ["고압 유화기법","코리아나만의 고압 유화기법으로 크림 입자를 미세하게 쪼갠 특별한 제형이에요."],
+         ["윤기 있는 촉촉함","발효 보습 성분이 피부에 부드럽게 스며들어 촉촉함이 오래 유지돼요."]],
+    ing:["천녀목란 추출물","발효 보습 성분"],
+    for:"피부 톤이 칙칙하고 생기가 없는 분, 은은한 광채 피부를 원하는 분" },
+  { en:"Cell Recovery Ampoule", cat:"AMPOULE", step:2, vol:"35ml",
+    lead:"고농도 유효 성분으로 영양감 있고 탄탄한 피부로 가꿔 주는, 풍부한 영양감의 고품격 주름 개선 기능성 럭셔리 앰플",
+    pts:[["셀리커버리 파워 성분","셀리커버리 팩터·마데카소사이드·세라마이드 등 유효 성분이 피부를 건강하게 가꿔 줘요."],
+         ["프리미엄 공동 연구","프랑스 세더마사, 스페인 리포텍사와 코리아나화장품이 함께 연구 개발한 앰플이에요."],
+         ["LLCS 캡슐 기술","3가지 핵심 성분을 리포좀 리퀴드 크리스탈 시스템으로 한 번 더 감싸 부드럽게 흡수돼요."],
+         ["탄탄한 V라인 윤곽","영양 가득 농밀한 제형이 피부에 부드럽게 퍼져 탄탄한 얼굴 윤곽으로 가꿔 줘요."]],
+    ing:["셀리커버리 팩터","마데카소사이드","세라마이드"],
+    for:"피부가 지치고 영양이 부족한 분, 탄력과 얼굴 윤곽이 고민인 분" },
+  { en:"Total Recovery Eye Cream", cat:"EYE CREAM", step:3, vol:"30ml · 100ml",
+    lead:"잔주름, 굵은 주름, 처짐, 건조함 등 눈가에 나타나기 쉬운 다양한 고민을 케어해 주는 럭셔리 아이크림",
+    pts:[["눈가 고민 토탈 케어","깊은 주름·잔주름·표정 주름·처짐·심한 건조함 등 눈가 고민을 한 번에 관리해요."],
+         ["생기 있는 눈매","지쳐 보이는 눈가를 또렷하게. 넉넉한 용량으로 팔자·미간 주름까지 편하게 발라요."],
+         ["리프트 업 제형","찰진 발림성과 탄력감이 느껴지는 쫀쫀한 제형으로 바른 뒤 눈가가 탄탄해져요."],
+         ["순하게, 특허 받은 제품","눈가에 잘 생기는 좁쌀(비립종) 고민을 줄여 주는 특허 받은 아이크림이에요."]],
+    ing:["로즈 앱솔루트 향"],
+    for:"눈가 잔주름·처짐이 신경 쓰이는 분, 눈가가 건조하고 피곤해 보이는 분" }
+];
+const pd = document.getElementById("pd"), pdCard = pd.querySelector(".pd-card"), prods = [...document.querySelectorAll(".prod[data-pd]")];
+let pdAt = 0, pdFrom = null;
+function fillPd(k){
+  pdAt = (k + prods.length) % prods.length;
+  const d = PRODUCTS[pdAt], c = prods[pdAt], img = c.querySelector("img"), $ = q => pd.querySelector(q);
+  const name = i => prods[(i + prods.length) % prods.length].querySelector("b").textContent;
+  $(".pd-rk b").textContent = pdAt + 1;
+  $(".pd-top img").src = img.src; $(".pd-top img").alt = img.alt;
+  $(".pd-cat").textContent = d.cat;
+  $(".pd-hot").hidden = !d.hot; $(".pd-hot").textContent = d.hot || "";
+  $(".pd-en").textContent = d.en;
+  $("#pdName").textContent = name(pdAt);
+  $(".pd-lead").textContent = d.lead;
+  pd.querySelectorAll(".pd-route li").forEach((li, i) => li.classList.toggle("on", i === d.step));
+  $(".pd-pts").innerHTML = d.pts.map(([h, t]) => `<div><b>${h}</b><p>${t}</p></div>`).join("");
+  $(".ing").innerHTML = d.ing.map(x => `<span>${x}</span>`).join("");
+  $(".for").textContent = d.for;
+  $(".vol").textContent = d.vol;
+  $(".pv span").textContent = name(pdAt - 1); $(".nx span").textContent = name(pdAt + 1);
+  pdCard.scrollTop = 0;
+}
+function openPd(k, from){
+  pdFrom = from; fillPd(k);
+  pd.hidden = false; document.body.style.overflow = "hidden"; pd.querySelector(".x").focus();
+}
+function closePd(){ pd.hidden = true; document.body.style.overflow = ""; if (pdFrom) pdFrom.focus(); }
+prods.forEach((c, k) => {
+  c.addEventListener("click", () => openPd(k, c));
+  c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPd(k, c); } });
+});
+pd.addEventListener("click", e => {
+  if (e.target === pd || e.target.closest(".x")) closePd();
+  else if (e.target.closest(".pv")) fillPd(pdAt - 1);
+  else if (e.target.closest(".nx")) fillPd(pdAt + 1);
+});
+pd.addEventListener("keydown", e => {
+  if (e.key === "Escape") closePd();
+  else if (e.key === "ArrowLeft") fillPd(pdAt - 1);
+  else if (e.key === "ArrowRight") fillPd(pdAt + 1);
+  else if (e.key === "Tab") {   // 팝업 안에서만 포커스 이동
+    const f = [...pd.querySelectorAll("button, a[href]")], a = f[0], z = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+    else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+  }
 });
 
 /* ▸ 매장 영상 */
