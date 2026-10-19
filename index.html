@@ -173,7 +173,7 @@ header .bar{display:flex;align-items:center;justify-content:space-between;gap:8p
 
 /* ── 브랜드 이야기 ── */
 .story .eq{font-family:var(--en);font-weight:400;font-size:40px;line-height:1.15;text-align:center;letter-spacing:.01em}
-.story .eq i{font-style:italic;color:var(--mute);font-size:.7em;margin:0 6px}
+.story .eq i{display:inline-block;font-family:var(--sans);font-style:normal;font-weight:300;color:var(--mute);font-size:.7em;margin:0 .3em;vertical-align:.16em}
 .story .eq em{display:block;font-style:normal;letter-spacing:.2em;font-size:.8em;margin-top:10px}
 .story .desc{margin-top:22px;text-align:center;font-family:var(--ko);font-weight:400;font-size:19px;line-height:1.8;letter-spacing:-.03em;color:var(--ink-2)}
 .story .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:44px;align-items:end}
@@ -656,7 +656,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       <div class="opts" role="radiogroup" aria-label="첫 방문 관리 선택">
         <button class="opt" role="radio" aria-checked="true" data-label="페이스 체험관리">
           <span class="rd"></span>
-          <span><b>페이스 체험관리</b><small>정확한 피부 진단 + 1:1 맞춤관리</small></span>
+          <span><b>페이스 체험관리</b><small>정확한 피부 진단<br>+ 1:1 맞춤관리</small></span>
           <span class="pr num">70,000<small>원</small></span>
         </button>
         <button class="opt" role="radio" aria-checked="false" data-label="페이스+견갑골 체험관리">
@@ -727,7 +727,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
     <div class="pg-list">
 
       <article class="pg" id="p-maternity">
-        <figure><img src="img/body-back.jpg" alt="등과 어깨를 부드럽게 관리하는 모습" loading="lazy" width="800" height="1068"></figure>
+        <figure><img src="img/ph-maternity.jpg" alt="두 손으로 배를 감싼 임신부" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Maternity Care</span><span class="tag">임신 중 · 출산 후</span></div>
         <h3>산전 · 산후 관리</h3>
         <p class="one">몸과 피부가 크게 달라지는 시기, 편안한 자세로 받는 순환 관리</p>
@@ -740,7 +740,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-wedding">
-        <figure><img src="img/portrait.jpg" alt="맑은 피부의 모델" loading="lazy" width="900" height="1350" style="object-position:50% 22%"></figure>
+        <figure><img src="img/ph-wedding.jpg" alt="베일을 쓰고 부케를 든 신부" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Wedding Care</span><span class="tag">예비 신부 · 신랑</span></div>
         <h3>웨딩 관리</h3>
         <p class="one">가장 빛나야 하는 날, 얼굴부터 데콜테까지 맑고 환하게</p>
@@ -753,7 +753,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-teen">
-        <figure><img src="img/ph-acne.jpg" alt="여드름 관리 전과 후 피부 비교" loading="lazy" width="900" height="563"></figure>
+        <figure><img src="img/ph-trouble-student.jpg" alt="학생이 브러시로 진정 젤을 바르는 트러블 관리를 받는 모습" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Acne Perfect Care</span><span class="tag">학생 전용</span></div>
         <h3>트러블 관리<small>아크네 퍼펙트 집중 케어</small></h3>
         <p class="one">반복되는 여드름, 자극 없이 진정하고 맑게</p>
@@ -766,7 +766,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-growth">
-        <figure><img src="img/ph-growth.jpg" alt="교복을 입은 학생들 일러스트" loading="lazy" width="900" height="562"></figure>
+        <figure><img src="img/ph-growth-kids.jpg" alt="푸른 동산에서 뛰어노는 아이들" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Growth Care</span><span class="tag">초6 ~ 고3 · 90분</span></div>
         <h3>성장케어<small>청소년 바른 자세 관리</small></h3>
         <p class="one">골반 관리 + 척추 관리 + 트러블 관리를 한 번에</p>
@@ -817,7 +817,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-detox">
-        <figure><img src="img/ph-detox.jpg" alt="허리선이 드러난 몸매 사진" loading="lazy" width="900" height="563"></figure>
+        <figure><img src="img/ph-detox-veg.jpg" alt="나무 도마 둘레에 놓인 신선한 채소와 과일" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Detox Therapy</span><span class="tag">전신 바디 관리</span></div>
         <h3>디톡스 관리<small>디톡스 테라피</small></h3>
         <p class="one">순환은 시원하게, 몸은 가볍게 비워 내는 전신 관리</p>
@@ -847,7 +847,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
     <div class="pg-list">
 
       <article class="pg" id="p-sprout">
-        <figure><img src="img/still.jpg" alt="세레니끄 관리 제품과 관리 공간" loading="lazy" width="1200" height="800"></figure>
+        <figure><img src="img/ph-sprout-care.jpg" alt="새싹과 에센스를 곁에 두고 얼굴 관리를 받는 모습" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Sprout Care</span><span class="tag">목동점 시그니처</span></div>
         <h3>새싹 관리</h3>
         <p class="one">맑고 투명하게 깨어나는 피부의 첫걸음</p>
@@ -872,7 +872,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-cooling">
-        <figure><img src="img/bed.jpg" alt="깨끗하게 준비된 관리 베드" loading="lazy" width="1000" height="667"></figure>
+        <figure><img src="img/ph-cooling-parasol.jpg" alt="바닷가 파라솔 그늘에서 시원한 진정 팩을 하고 쉬는 모습" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Cooling White</span><span class="tag">피부 온도 −3℃</span></div>
         <h3>쿨링 미백 관리</h3>
         <p class="one">진정 + 미백 + 수분 + 쿨링을 한 번의 관리로</p>
@@ -885,7 +885,7 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
       </article>
 
       <article class="pg" id="p-ceramide">
-        <figure><img src="img/stone.jpg" alt="편안하게 휴식하며 받는 관리" loading="lazy" width="800" height="1200" style="object-position:50% 40%"></figure>
+        <figure><img src="img/ph-ceramide-cream.jpg" alt="꾸덕하게 펴 바른 고보습 크림 텍스처" loading="lazy" width="1200" height="750"></figure>
         <div class="meta"><span class="en">Ceramide Care</span><span class="tag">겨울철 건조 피부</span></div>
         <h3>세라마이드 고보습 관리</h3>
         <p class="one">세라마이드 크림 한 통을 다 쓰는 고보습 관리</p>
@@ -950,13 +950,14 @@ footer img{height:15px;width:auto;margin:0 auto 14px}
     </div>
     <div class="chapters" role="group" aria-label="영상 구간">
       <button data-t="5.8"><span>01</span>대기공간</button>
-      <button data-t="7"><span>02</span>피부 측정</button>
+      <button data-t="7"><span>02</span>상담공간</button>
       <button data-t="11.8"><span>03</span>1인 관리룸</button>
       <button data-t="13.8"><span>04</span>커플룸</button>
     </div>
     <div class="gallery" data-rail aria-label="매장 사진">
-      <figure><div class="ph"><img class="fill" src="img/entrance.jpg" alt="세레니끄 목동점 입구" loading="lazy" width="900" height="1350"></div><figcaption>매장 입구<small>부영그린타운 2차 상가 2층</small></figcaption></figure>
-      <figure><div class="ph"><img class="fill" src="img/lounge.jpg" alt="상담 공간" loading="lazy" width="900" height="1350"></div><figcaption>상담 · 피부 측정<small>체계적인 피부 진단</small></figcaption></figure>
+      <figure><div class="ph"><img class="fill" src="img/space-reception.jpg" alt="세레니끄 목동점 입구의 빨간 로고 벽과 안내 데스크" loading="lazy" width="900" height="1200"></div><figcaption>매장 입구<small>부영그린타운 2차 상가 2층</small></figcaption></figure>
+      <figure><div class="ph"><img class="fill" src="img/space-lounge.jpg" alt="빨간 소파가 놓인 대기 라운지" loading="lazy" width="809" height="1078"></div><figcaption>대기 라운지<small>편안하게 쉬어 가는 공간</small></figcaption></figure>
+      <figure><div class="ph"><img class="fill" src="img/space-powder.jpg" alt="거울과 드라이기가 준비된 파우더룸" loading="lazy" width="900" height="1200"></div><figcaption>파우더룸<small>관리 후 헤어·메이크업 정돈</small></figcaption></figure>
       <figure><div class="ph"><img class="fill" src="img/room.jpg" alt="1인 관리룸" loading="lazy" width="900" height="1349"></div><figcaption>1인 프라이빗 룸<small>단독 개별룸 4개</small></figcaption></figure>
       <figure><div class="ph"><img class="fill" src="img/shop-couple.jpg" alt="커플룸" loading="lazy" width="746" height="560"></div><figcaption>커플룸<small>가족·연인·친구와 함께</small></figcaption></figure>
     </div>
