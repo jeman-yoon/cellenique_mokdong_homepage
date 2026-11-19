@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/:path*", "destination": "https://cellenique-mokdong.pages.dev/:path*", "statusCode": 301 }
+  ]
+}
