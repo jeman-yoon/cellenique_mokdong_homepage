@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cellenique-mokdong.vercel.app/sitemap.xml
+Sitemap: https://cellenique-mokdong.pages.dev/sitemap.xml
