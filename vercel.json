@@ -1,5 +1,11 @@
 {
+  "trailingSlash": true,
   "redirects": [
+    { "source": "/", "destination": "https://cellenique-mokdong.pages.dev/", "statusCode": 301 },
+    { "source": "/event/", "destination": "https://cellenique-mokdong.pages.dev/event/", "statusCode": 301 },
+    { "source": "/event", "destination": "https://cellenique-mokdong.pages.dev/event/", "statusCode": 301 },
+    { "source": "/index.html", "destination": "https://cellenique-mokdong.pages.dev/", "statusCode": 301 },
+    { "source": "/event/index.html", "destination": "https://cellenique-mokdong.pages.dev/event/", "statusCode": 301 },
     { "source": "/:path*", "destination": "https://cellenique-mokdong.pages.dev/:path*", "statusCode": 301 }
   ]
 }
